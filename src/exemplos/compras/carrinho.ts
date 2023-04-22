@@ -1,27 +1,59 @@
-import { Produto } from "./produto";
+import {Produto} from './produto'
 
 export class Carrinho {
-	#itens: Produto[] = []
 
-	get total() {
-		return this.#itens.reduce((prev, curr) => {
-			return prev + (curr.preco * curr.quantidade)
-		}, 0)
+	get quantidade() {
+		return this.#itens.length
 	}
 
-	adiciona(...produtos: Produto[]) {
-		this.#itens.push(...produtos)
-	}
+  #itens: Produto[] = []
 
-	adicionaUm(produto: Produto) {
-		this.#itens.push(produto)
-	}
+  get total() {
+    return this.#itens.reduce((prev, curr) => {
+      return prev + curr.preco * curr.quantidade
+    }, 0)
+  }
 
-	adicionaMuitos(produtos: Produto[]) {
-		produtos.forEach(produto => {
-			this.#itens.push(produto)
+  get html() {
+    const thead = `<thead>
+			<th>Nome</td>
+			<th>Preço</td>
+			<th>Quantidade</td>
+			<th></th>
+		</thead>`
+
+		const tbody = document.createElement('tbody')
+		this.#itens.forEach(produto => {
+			tbody.innerHTML += produto.html(produto)
 		})
+
+    const tfoot = `<tfoot>
+		<td></td>
+		<td></td>
+		<td>${this.total}</td>
+		<td></td>
+	</tfoot>`
+
+    return thead + tbody.innerHTML + tfoot
+  }
+
+	remove(index: number) {
+		this.#itens.splice(index, 1)
 	}
+
+  adiciona(...produtos: Produto[]) {
+    this.#itens.push(...produtos)
+  }
+
+  adicionaUm(produto: Produto) {
+    this.#itens.push(produto)
+  }
+
+  adicionaMuitos(produtos: Produto[]) {
+    produtos.forEach((produto) => {
+      this.#itens.push(produto)
+    })
+  }
 }
 
 // const batata = new Produto('Batata', 2, 10)

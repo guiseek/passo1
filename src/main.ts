@@ -4,11 +4,14 @@ import './style.css'
 // import './exemplos/listas'
 // import './exemplos/imc'
 // import './exemplos/classes'
+import './exemplos/tuplas'
 import {Produto, Carrinho} from './exemplos/compras'
 
 const form = document.querySelector('form')!
 
 const carrinho = new Carrinho()
+
+const table = document.querySelector('table')
 
 form.onsubmit = (ev) => {
   ev.preventDefault()
@@ -16,12 +19,14 @@ form.onsubmit = (ev) => {
   const data = new FormData(form)
 
   const produto = new Produto(
+    carrinho.quantidade,
     data.get('nome').toString(),
-    parseFloat(data.get('preco').toString()),
-    parseFloat(data.get('quantidade').toString())
+    +data.get('preco'),
+    +data.get('quantidade')
   )
 
-	carrinho.adiciona(produto)
-	console.log(carrinho.total);
-	
+  carrinho.adiciona(produto)
+
+  table.innerHTML = carrinho.html
 }
+

@@ -1,17 +1,33 @@
 export class Produto {
-	constructor(
-		public nome: string,
-		public preco: number,
-		public quantidade: number
-	) {}
-
-	calcula() {
-		return this.preco * this.quantidade
+	 
+  constructor(
+		public id: number,
+    public nome: string,
+    public preco: number,
+    public quantidade: number
+  ) {
 	}
 
-	toString() {
-		return `O produto ${this.nome} com preço ${this.preco} e quantidade ${this.quantidade}`
-	}
+  calcula() {
+    return this.preco * this.quantidade
+  }
+
+  toString() {
+    return `O produto ${this.nome} com preço ${this.preco} e quantidade ${this.quantidade}`
+  }
+
+  html(produto: Produto) {
+
+		return `
+			<tr class="produto-${produto.id}">
+				<td> ${produto.nome} </td>
+				<td> ${produto.quantidade} </td>
+				<td> ${produto.preco} </td>
+				<td> <button data-id="${produto.id}">x</button> </td>
+			</tr>
+		`
+
+  }
 }
 
 // const produtos: Produto[] = [
