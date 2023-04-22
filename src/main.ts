@@ -1,17 +1,9 @@
 import './style.css'
-// import './exemplos/vector2'
-// import './exemplos/pessoa'
-// import './exemplos/listas'
-// import './exemplos/imc'
-// import './exemplos/classes'
-import './exemplos/tuplas'
-import {Produto, Carrinho} from './exemplos/compras'
-
+import './elements'
+import { Produto } from './elements'
 const form = document.querySelector('form')!
 
-const carrinho = new Carrinho()
-
-const table = document.querySelector('table')
+const carrinhoEl = document.querySelector('carrinho-el')
 
 form.onsubmit = (ev) => {
   ev.preventDefault()
@@ -19,14 +11,13 @@ form.onsubmit = (ev) => {
   const data = new FormData(form)
 
   const produto = new Produto(
-    carrinho.quantidade,
     data.get('nome').toString(),
     +data.get('preco'),
     +data.get('quantidade')
   )
 
-  carrinho.adiciona(produto)
+  carrinhoEl.adiciona(produto)
 
-  table.innerHTML = carrinho.html
+  form.reset()
 }
 

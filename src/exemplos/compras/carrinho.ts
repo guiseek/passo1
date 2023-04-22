@@ -7,6 +7,9 @@ export class Carrinho {
 	}
 
   #itens: Produto[] = []
+  get itens() {
+    return this.#itens
+  }
 
   get total() {
     return this.#itens.reduce((prev, curr) => {
